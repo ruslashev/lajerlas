@@ -5,6 +5,7 @@
 #include "../constants.hh"
 
 #include <enet/enet.h>
+#include <cstring>
 
 class Server
 {
@@ -13,6 +14,9 @@ class Server
 public:
 	Server();
 	~Server();
+
+	void Poll();
+	void DisconnectClient(ENetPeer*);
 };
 
 #endif

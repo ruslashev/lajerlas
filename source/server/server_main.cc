@@ -4,7 +4,14 @@
 
 int main()
 {
-	puts("server (not) initializing");
+	puts("server initializing");
+
+	Server server;
+
+	while (1) {
+		server.Poll();
+	}
+
 	return 0;
 }
 
