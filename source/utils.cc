@@ -1,4 +1,4 @@
-#include "utils.hpp"
+#include "utils.hh"
 
 void assertf(bool condition, const char *format, ...)
 {

@@ -7,7 +7,7 @@ int main()
 	puts("I am a client AMA");
 	Client client;
 	
-	client.Send();
+	client.Connect();
 
 	return 0;
 }

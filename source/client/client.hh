@@ -10,11 +10,13 @@
 class Client
 {
 	ENetHost *host;
+	ENetPeer *server;
 public:
 	Client();
 	~Client();
 
-	void Send(ENetPeer*);
+	void Connect();
+	void Send();
 };
 
 #endif
