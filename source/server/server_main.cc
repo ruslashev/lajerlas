@@ -1,3 +1,5 @@
+#include "server.hh"
+
 #include <fstream>
 
 int main()

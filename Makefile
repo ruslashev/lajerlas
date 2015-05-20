@@ -1,8 +1,8 @@
-SRC_SHARED = $(wildcard source/*.cpp)
-SRC_CLIENT = $(wildcard source/client/*.cpp) $(SRC_SHARED)
-OBJ_CLIENT = $(patsubst source/%.cpp, .objs/%.o, $(SRC_CLIENT))
-SRC_SERVER = $(wildcard source/server/*.cpp) $(SRC_SHARED)
-OBJ_SERVER = $(patsubst source/%.cpp, .objs/%.o, $(SRC_SERVER))
+SRC_SHARED = $(wildcard source/*.cc)
+SRC_CLIENT = $(wildcard source/client/*.cc) $(SRC_SHARED)
+OBJ_CLIENT = $(patsubst source/%.cc, .objs/%.o, $(SRC_CLIENT))
+SRC_SERVER = $(wildcard source/server/*.cc) $(SRC_SHARED)
+OBJ_SERVER = $(patsubst source/%.cc, .objs/%.o, $(SRC_SERVER))
 DEP = $(OBJ_CLIENT:.o=.d) $(OBJ_SERVER:.o=.d)
 EXECNAME_CLIENT = lajerlas_client
 EXECNAME_SERVER = lajerlas_server
@@ -20,14 +20,14 @@ $(EXECNAME_CLIENT): $(OBJ_CLIENT)
 $(EXECNAME_SERVER): $(OBJ_SERVER)
 	$(CXX) -o $@ $^ $(LDFLAGS_SERVER)
 
-.objs/%.o: source/%.cpp
+.objs/%.o: source/%.cc
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 objdir:
 	mkdir -p .objs .objs/client .objs/server
 
 -include $(DEP)
-.objs/%.d: source/%.cpp
+.objs/%.d: source/%.cc
 	$(CPP) $(CXXFLAGS) $< -MM -MT $(@:.d=.o) > $@
 
 .PHONY: clean
