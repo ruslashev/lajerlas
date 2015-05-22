@@ -1,3 +1,4 @@
+CXX = g++
 SRC_SHARED = $(wildcard source/*.cc)
 SRC_CLIENT = $(wildcard source/client/*.cc) $(SRC_SHARED)
 OBJ_CLIENT = $(patsubst source/%.cc, .objs/%.o, $(SRC_CLIENT))
@@ -8,11 +9,10 @@ EXECNAME_CLIENT = lajerlas_client
 EXECNAME_SERVER = lajerlas_server
 LDFLAGS_CLIENT = -lncurses -lenet
 LDFLAGS_SERVER = -lenet
-CXXFLAGS = -Wall -Wextra -g -std=c++0x
+CXXFLAGS = -Wall -Wextra -g -std=c++0x -fpermissive
 
 default: objdir $(EXECNAME_CLIENT) $(EXECNAME_SERVER)
-	./$(EXECNAME_SERVER) &
-	./$(EXECNAME_CLIENT)
+	@true
 
 $(EXECNAME_CLIENT): $(OBJ_CLIENT)
 	$(CXX) -o $@ $^ $(LDFLAGS_CLIENT)

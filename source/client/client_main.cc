@@ -4,10 +4,13 @@
 
 int main()
 {
-	puts("I am a client AMA");
 	Client client;
+	puts("[Client] Loaded");
 	
+	puts("[Client] Connecting");
 	client.Connect();
+
+	puts("[Client] Exit");
 
 	return 0;
 }

@@ -4,7 +4,7 @@
 const struct {
 	int ServerPort = 2345;
 	int MaxClients = 32;
-} Constants;
+} Constants {};
 
 #endif
 

@@ -3,7 +3,7 @@
 Server::Server()
 {
 	assertf(enet_initialize() == 0,
-			"Failed to initialize ENet");
+			"[Server] Failed to initialize ENet");
 
 	address.host = ENET_HOST_ANY;
 	address.port = Constants.ServerPort;
@@ -12,7 +12,7 @@ Server::Server()
 			Constants.MaxClients,
 			2, 0, 0);
 	assertf(host,
-			"An error occurred while trying to create a server.");
+			"[Server] An error occurred while trying to create a server.");
 }
 
 Server::~Server()
@@ -27,14 +27,14 @@ void Server::Poll()
 	while (enet_host_service(host, &event, 0) > 0) {
 		switch (event.type) {
 			case ENET_EVENT_TYPE_CONNECT:
-				printf("A new client connected from %x:%u.\n",
+				printf("[Server] A new client connected from %x:%u.\n",
 						event.peer->address.host,
 						event.peer->address.port);
-				memcpy(event.peer->data, "Client data",
-						strlen("Client data"));
+				event.peer->data = "Client information";
 				break;
 			case ENET_EVENT_TYPE_RECEIVE:
-				printf("A packet of length %u containing %s was received from %s on channel %u.\n",
+				printf("[Server] A packet of length %zu containing %s was received from "
+						"%s on channel %d.\n",
 						event.packet->dataLength,
 						event.packet->data,
 						event.peer->data,
@@ -42,8 +42,11 @@ void Server::Poll()
 				enet_packet_destroy (event.packet);
 				break;
 			case ENET_EVENT_TYPE_DISCONNECT:
-				printf ("%s disconnected.\n", event.peer -> data);
-				event.peer -> data = NULL;
+				printf("[Server] %s disconnected.\n", event.peer->data);
+				event.peer->data = NULL;
+				break;
+			case ENET_EVENT_TYPE_NONE:
+				break;
 		}
 	}
 }
@@ -58,8 +61,10 @@ void Server::DisconnectClient(ENetPeer* peer)
 				enet_packet_destroy(event.packet);
 				break;
 			case ENET_EVENT_TYPE_DISCONNECT:
-				puts("Disconnection succeeded.");
+				puts("[Server] Disconnection succeeded.");
 				return;
+			default:
+				break;
 		}
 	}
 	enet_peer_reset(peer);
