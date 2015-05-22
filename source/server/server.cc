@@ -30,7 +30,6 @@ void Server::Poll()
 				printf("[Server] A new client connected from %x:%u.\n",
 						event.peer->address.host,
 						event.peer->address.port);
-				event.peer->data = "Client information";
 				break;
 			case ENET_EVENT_TYPE_RECEIVE:
 				printf("[Server] A packet of length %zu containing %s was received from "
