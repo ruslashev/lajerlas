@@ -20,7 +20,7 @@ Client::~Client()
 	enet_deinitialize();
 }
 
-void Client::Connect()
+bool Client::Connect()
 {
 	ENetAddress address;
 	enet_address_set_host(&address, "127.0.0.1");
@@ -31,18 +31,19 @@ void Client::Connect()
 			"[Client] No available peers for initiating an ENet connection.");
 
 	// Wait up to 5 seconds for the connection attempt to succeed.
+	int tries = 2;
 	ENetEvent event;
-	if (enet_host_service(host, &event, 5000) > 0 &&
-			event.type == ENET_EVENT_TYPE_CONNECT) {
-		puts ("[Client] Connection succeeded.");
-		Send();
-	} else {
-		// Either the 5 seconds are up or a disconnect event was
-		// received. Reset the peer in the event the 5 seconds
-		// had run out without any significant event.
-		enet_peer_reset(server);
-		puts("[Client] Connection failed.");
+	while (tries > 1) {
+		if (enet_host_service(host, &event, 5000) > 0 &&
+				event.type == ENET_EVENT_TYPE_CONNECT) {
+			puts("[Client] Connection succeeded.");
+			return true;
+		} else {
+			enet_peer_reset(server);
+			--tries;
+		}
 	}
+	puts("[Client] Connection failed after 2 retries.");
 }
 
 void Client::Send()

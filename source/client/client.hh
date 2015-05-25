@@ -15,7 +15,7 @@ public:
 	Client();
 	~Client();
 
-	void Connect();
+	bool Connect();
 	void Send();
 };
 

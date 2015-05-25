@@ -7,15 +7,6 @@
 #include <ctype>
 #include <string>
 
-typedef uint16_t tile;
-
-class World
-{
-public:
-	std::string name;
-	uint16_t width;
-	uint16_t height;
-};
 
 #endif
 

@@ -8,7 +8,8 @@ int main()
 	puts("[Client] Loaded");
 	
 	puts("[Client] Connecting");
-	client.Connect();
+	if (client.Connect())
+		client.Send();
 
 	puts("[Client] Exit");
 
