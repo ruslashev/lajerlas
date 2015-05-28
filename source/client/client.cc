@@ -44,6 +44,7 @@ bool Client::Connect()
 		}
 	}
 	debug("[Client] Connection failed after 2 retries.");
+	return false;
 }
 
 void Client::Send()

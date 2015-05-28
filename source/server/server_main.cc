@@ -5,13 +5,13 @@
 int main()
 {
 	Server server;
-	puts("[Server] Loaded");
+	debug("[Server] Loaded");
 
-	puts("[Server] Polling");
+	debug("[Server] Polling");
 	while (1) {
 		server.Poll();
 	}
-	puts("[Server] Exit");
+	debug("[Server] Exit");
 
 	return 0;
 }

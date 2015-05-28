@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 #include <cstdarg>
-#include <ofstream>
+#include <fstream>
 
 void assertf(bool condition, const char *format, ...);
 void debug(const char *format, ...);
