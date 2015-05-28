@@ -36,19 +36,19 @@ bool Client::Connect()
 	while (tries > 1) {
 		if (enet_host_service(host, &event, 5000) > 0 &&
 				event.type == ENET_EVENT_TYPE_CONNECT) {
-			puts("[Client] Connection succeeded.");
+			debug("[Client] Connection succeeded.");
 			return true;
 		} else {
 			enet_peer_reset(server);
 			--tries;
 		}
 	}
-	puts("[Client] Connection failed after 2 retries.");
+	debug("[Client] Connection failed after 2 retries.");
 }
 
 void Client::Send()
 {
-	puts("[Client] Sending");
+	debug("[Client] Sending");
 	ENetPacket *packet = enet_packet_create("packet",
 			strlen("packet") + 1,
 			ENET_PACKET_FLAG_RELIABLE);

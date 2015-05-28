@@ -5,13 +5,13 @@
 int main()
 {
 	Client client;
-	puts("[Client] Loaded");
+	debug("[Client] Loaded");
 	
-	puts("[Client] Connecting");
-	if (client.Connect())
-		client.Send();
+	debug("[Client] Connecting");
+	if (!client.Connect())
+		return 1;
 
-	puts("[Client] Exit");
+	debug("[Client] Exit");
 
 	return 0;
 }

@@ -16,3 +16,19 @@ void assertf(bool condition, const char *format, ...)
 #endif
 }
 
+void debug(const char *format, ...)
+{
+#ifndef RELEASE
+	char output[512];
+	va_list args;
+	va_start(args, format);
+	vsnprintf(output, 512, format, args);
+	va_end(args);
+
+	std::ofstream debug_fstr;
+	debug_fstr.open("debug.txt");
+	debug_fstr << output << std::endl;
+	debug_fstr.close();
+#endif
+}
+
